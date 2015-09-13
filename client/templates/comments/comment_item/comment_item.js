@@ -1,3 +1,5 @@
-/**
- * Created by efrancis on 9/13/15.
- */
+Template.commentItem.helpers({
+  submittedText: function(){
+    return this.submitted.toString();
+  }
+});

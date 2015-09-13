@@ -15,7 +15,7 @@ body {
   position: relative;
 }
 .page {
-  position: absolute;
+  position: relative;
   top: 0px;
   width: 100%;
 }

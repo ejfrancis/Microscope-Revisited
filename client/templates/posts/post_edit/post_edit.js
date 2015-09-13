@@ -2,21 +2,29 @@ Template.postEdit.events({
   'submit form': function(e) {
     e.preventDefault();
 
-    var currentPostId = this._id;
+    var currentPost = {
+      url: this.url,
+      title: this.title
+    };
 
-    var postProperties = {
+    var updatedPost = {
       url: $(e.target).find('[name=url]').val(),
       title: $(e.target).find('[name=title]').val()
     };
 
-    Posts.update(currentPostId, {$set: postProperties}, function(error) {
-      if (error) {
-        // display the error to the user
-        alert(error.reason);
-      } else {
-        Router.go('postPage', {_id: currentPostId});
+    var currentPostId = this._id;
+
+    Meteor.call('postEdit', currentPostId,  currentPost, updatedPost, function(err,result){
+      if(err){
+        return alert(error.reason);
       }
-    });
+
+      if(result.postExists){
+        alert ('This link has already been posted');
+      }
+
+      Router.go('postPage', { _id: result._id});
+    })
   },
 
   'click .delete': function(e) {

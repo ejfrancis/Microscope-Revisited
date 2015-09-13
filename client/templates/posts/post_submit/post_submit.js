@@ -21,7 +21,7 @@ Template.postSubmit.events({
       if (result.postExists) {
         Errors.throw('This link has already been posted');
       }
-      
+
       Router.go('postPage', { _id: result._id});
     });
   }

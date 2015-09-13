@@ -3,6 +3,6 @@ Errors = {
   collection: new Mongo.Collection(null),
 
   throw: function(message) {
-    Errors.collection.insert({message: message, seen: false})
+    Errors.collection.insert({message: message, seen: false});
   }
 };

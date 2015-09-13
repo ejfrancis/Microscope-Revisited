@@ -26,5 +26,13 @@ Package.onUse(function(api, where) {
 //Package.onTest(function(api) {
 //  api.use('tinytest');
 //  api.use('efrancis:errors');
-//  api.addFiles('errors-tests.js');
+//  api.addFiles('errors_tests.js');
 //});
+
+
+Package.onTest(function(api) {
+  api.use('efrancis:errors', 'client');
+  api.use(['tinytest','test-helpers'], 'client');
+
+  api.addFiles('errors_tests.js', 'client');
+});

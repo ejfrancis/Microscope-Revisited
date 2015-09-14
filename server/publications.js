@@ -1,6 +1,12 @@
 
-Meteor.publish('posts', function() {
-  return Posts.find();
+Meteor.publish('posts', function(sort,limit) {
+  check(sort, Object);
+  check(limit, Number);
+  //use pagination options to retrieve subset
+  return Posts.find({}, {
+    sort: sort,
+    limit: limit
+  });
 });
 
 Meteor.publish('comments', function(postId){

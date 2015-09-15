@@ -15,7 +15,7 @@ body {
   position: relative;
 }
 .page {
-  position: relative;
+  position: absolute;
   top: 0px;
   width: 100%;
 }
@@ -78,6 +78,7 @@ body {
     margin-top: 7px; }
 
 .comments {
+  padding-top:75px;
   list-style-type: none;
   margin: 0; }
   .comments li h4 {

@@ -1,4 +1,6 @@
 Template.postsList.onRendered(function () {
+  console.log('rendered');
+  console.log('Posts:', Posts.find({}).fetch());
   this.find('.wrapper')._uihooks = {
     moveElement: function (node, next) {
       var $node = $(node);
@@ -47,5 +49,21 @@ Template.postsList.onRendered(function () {
         $(this).remove();
       });
     }
+  }
+});
+
+Template.postsList.onCreated(function(){
+  this.subscribe("posts",{
+    sort: {
+      submitted: -1,
+      _id: -1
+    },
+    limit: 10
+  });
+});
+
+Template.postsList.helpers({
+  posts: function(){
+    return Posts.find();
   }
 });

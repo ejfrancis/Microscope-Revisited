@@ -1,9 +1,11 @@
 <template name="postsList">
   <div class="posts">
     <div class="wrapper">
-      {{#each posts}}
-        {{> postItem}}
-      {{/each}}
+      {{#if Template.subscriptionsReady}}
+        {{#each posts}}
+          {{> postItem}}
+        {{/each}}
+      {{/if}}
     </div>
 
     {{#if nextPath}}

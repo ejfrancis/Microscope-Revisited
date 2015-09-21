@@ -1,6 +1,4 @@
 Template.postsList.onRendered(function () {
-  console.log('rendered');
-  console.log('Posts:', Posts.find({}).fetch());
   this.find('.wrapper')._uihooks = {
     moveElement: function (node, next) {
       var $node = $(node);

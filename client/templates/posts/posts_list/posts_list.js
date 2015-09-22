@@ -1,6 +1,33 @@
 Template.postsList.helpers({
   posts: function(){
-    return Posts.find();
+    Subs.reset();
+    var options = {};
+
+    // sort posts depending on route
+    if(FlowRouter.current().path.indexOf('new') !== -1){
+      console.log('new');
+      //new
+      options = {
+        sort: {
+          submitted: -1,
+          _id: -1
+        },
+        limit: 10
+      };
+    }else{
+      //best
+      console.log('best');
+      options = {
+        sort: {
+          votes:-1,
+          submitted: -1,
+          _id: -1
+        },
+        limit: 10
+      }
+    }
+    console.log('-getting posts');
+    return Posts.find({}, options);
   }
 });
 

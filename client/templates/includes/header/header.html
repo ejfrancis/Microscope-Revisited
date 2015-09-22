@@ -7,15 +7,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{pathFor 'home'}}">Microscope</a>
+      <a class="navbar-brand" href="{{urlFor '/'}}">Microscope</a>
     </div>
     <div class="collapse navbar-collapse" id="navigation">
       <ul class="nav navbar-nav">
         <li class="{{activeRouteClass 'home' 'newPosts'}}">
-          <a href="{{pathFor 'newPosts'}}">New</a>
+          <a href="{{urlFor '/'}}">New</a>
         </li>
         <li class="{{activeRouteClass 'bestPosts'}}">
-          <a href="{{pathFor 'bestPosts'}}">Best</a>
+          <a href="{{urlFor '/best'}}">Best</a>
         </li>
 
         {{!-- only show notifications and submit post if logged in --}}

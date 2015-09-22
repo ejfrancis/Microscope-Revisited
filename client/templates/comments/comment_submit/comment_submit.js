@@ -21,7 +21,7 @@ Template.commentSubmit.events({
     var bodyVal = $body.val();
     var comment = {
       body: bodyVal,
-      postId: template.data._id
+      postId: FlowRouter.current().params._id
     };
 
     var errors = {};

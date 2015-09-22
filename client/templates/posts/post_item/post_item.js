@@ -15,6 +15,11 @@ Template.postItem.helpers({
     } else {
       return 'disabled';
     }
+  },
+
+  post: function(){
+    var post = Posts.findOne(this._id);
+    return post;
   }
 });
 
@@ -24,3 +29,9 @@ Template.postItem.events({
     Meteor.call('upvote', this._id);
   }
 });
+
+//Template.postItem.onCreated(function(){
+//  this._id = FlowRouter.current().params._id;
+//  this.post = Posts.find({_id: this._id});
+//  console.log(this);
+//});

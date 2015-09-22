@@ -1,4 +1,5 @@
 <template name="postItem">
+  {{#with post}}
   <div class="post">
     <a href="#" class="upvote btn btn-default  {{upvotedClass}}">⬆</a>
     <div class="post-content">
@@ -9,10 +10,11 @@
       <p>
         {{pluralize votes "Vote"}},
         submitted by {{author}}
-        <a href="{{pathFor 'postPage'}}">{{commentsCount}} comments</a>
+        <a href="{{pathFor 'postPage' }}/{{_id}}">{{commentsCount}} comments</a>
         {{#if ownPost}}<a href="{{pathFor 'postEdit'}}">Edit</a>{{/if}}
       </p>
     </div>
-    <a href="{{pathFor 'postPage'}}" class="discuss btn btn-default">Discuss</a>
+    <a href="{{pathFor 'postPage'}}/{{_id}}" class="discuss btn btn-default">Discuss</a>
   </div>
+  {{/with}}
 </template>

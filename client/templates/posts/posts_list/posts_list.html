@@ -3,7 +3,7 @@
     <div class="wrapper">
       {{#if Template.subscriptionsReady}}
         {{#each posts}}
-          {{> postItem}}
+          {{> postItem _id=_id}}
         {{/each}}
       {{else}}
           <p>Loading...</p>

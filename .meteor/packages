@@ -15,3 +15,4 @@ efrancis:errors
 kadira:flow-router
 kadira:blaze-layout
 arillo:flow-router-helpers
+meteorhacks:subs-manager

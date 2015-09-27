@@ -3,14 +3,14 @@ Template.postsList.helpers({
     var options = {};
 
     // sort posts depending on route
-    switch(FlowRouter.getRouteName) {
+    switch(FlowRouter.getRouteName()) {
       case NewPostsController.name:
         options = NewPostsController.findOptions();
         break;
       case BestPostsController.name:
         options = BestPostsController.findOptions();
     }
-    
+
     return Posts.find({}, options);
   }
 });

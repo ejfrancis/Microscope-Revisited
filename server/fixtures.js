@@ -27,7 +27,7 @@ if (Posts.find().count() === 0) {
     postId: telescopeId,
     userId: tom._id,
     author: tom.profile.name,
-    submitted: new Date(now - 5 * 3600 * 1000),
+    submitted: new Date(now - 5 * 3600 * (1000 * (1000 * Math.random()))),
     body: 'Interesting project Sacha, can I get involved?'
   });
 
@@ -67,7 +67,7 @@ if (Posts.find().count() === 0) {
       author: sacha.profile.name,
       userId: sacha._id,
       url: 'http://google.com/?q=test-' + i,
-      submitted: new Date(now - i * 3600 * 1000 + 1),
+      submitted: new Date(now - i * 3600 * (1000 * 100000 * Math.random()) + 1),
       commentsCount: 0,
       upvoters: [],
       votes: 0

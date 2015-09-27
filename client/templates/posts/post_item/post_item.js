@@ -18,6 +18,7 @@ Template.postItem.helpers({
   },
 
   post: function(){
+    //debugger;
     var post = Posts.findOne(this._id);
     return post;
   }

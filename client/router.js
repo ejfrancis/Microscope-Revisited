@@ -54,57 +54,6 @@ Subs = new SubsManager();
 //});
 
 
-//generic posts list controller
-//PostsListController = RouteController.extend({
-//  template: 'postsList',
-//  increment: 10,
-//  postsLimit: function() {
-//    return parseInt(this.params.postsLimit) || this.increment;
-//  },
-//  findOptions: function() {
-//    return {sort: this.sort, limit: this.postsLimit()};
-//  },
-//  posts: function() {
-//    return Posts.find({}, this.findOptions());
-//  },
-//  subscriptions: function() {
-//    this.postsSub = Meteor.subscribe('posts', this.findOptions());
-//  },
-//  data: function() {
-//    var hasMore = this.posts().count() === this.postsLimit();
-//    return {
-//      posts: this.posts(),
-//      ready: this.postsSub.ready,
-//      nextPath: hasMore ? this.nextPath() : null
-//    };
-//  }
-});
-
-//extend posts list controller for new posts
-//NewPostsController = PostsListController.extend({
-//  //sort by newest
-//  sort: {
-//    submitted: -1,
-//    _id: -1
-//  },
-//  nextPath: function() {
-//    return Router.routes.newPosts.path({postsLimit: this.postsLimit() + this.increment})
-//  }
-//});
-
-//extend posts list controller for best posts
-//BestPostsController = PostsListController.extend({
-//  //sort by most votes
-//  sort: {
-//    votes: -1,
-//    submitted: -1,
-//    _id: -1
-//  }
-//  ,
-//  nextPath: function() {
-//    return Router.routes.bestPosts.path({postsLimit: this.postsLimit() + this.increment})
-//  }
-//});
 
 //FlowRouter.route('/post/:_id', {
 //  subscriptions: function(params){
@@ -161,6 +110,72 @@ Subs = new SubsManager();
 //  }
 //});
 
+//generic posts list controller
+//PostsListController = RouteController.extend({
+//  template: 'postsList',
+//  increment: 10,
+//  postsLimit: function() {
+//    return parseInt(this.params.postsLimit) || this.increment;
+//  },
+//  findOptions: function() {
+//    return {sort: this.sort, limit: this.postsLimit()};
+//  },
+//  posts: function() {
+//    return Posts.find({}, this.findOptions());
+//  },
+//  subscriptions: function() {
+//    this.postsSub = Meteor.subscribe('posts', this.findOptions());
+//  },
+//  data: function() {
+//    var hasMore = this.posts().count() === this.postsLimit();
+//    return {
+//      posts: this.posts(),
+//      ready: this.postsSub.ready,
+//      nextPath: hasMore ? this.nextPath() : null
+//    };
+//  }
+//});
+
+//generic posts list controller
+PostsListController = {
+  template: 'postsList',
+  increment: 10,
+  postsLimit: function() {
+    return parseInt(FlowRouter.getParam('postsLimit')) || this.increment;
+  },
+  findOptions: function() {
+    return {sort: this.sort, limit: this.postsLimit()};
+  }
+};
+
+//extend posts list controller for new posts
+NewPostsController = _.extend({
+  name: 'postsListNew',
+  //sort by newest
+  sort: {
+    submitted: -1,
+    _id: -1
+  },
+  nextPath: function() {
+    return Router.routes.newPosts.path({postsLimit: this.postsLimit() + this.increment})
+  }
+}, PostsListController);
+console.log('--npc, name:', NewPostsController.name);
+
+//extend posts list controller for best posts
+BestPostsController = _.extend({
+  name: 'postsListBest',
+  //sort by most votes
+  sort: {
+    votes: -1,
+    submitted: -1,
+    _id: -1
+  },
+  nextPath: function() {
+    return Router.routes.bestPosts.path({postsLimit: this.postsLimit() + this.increment})
+  }
+},PostsListController);
+
 FlowRouter.route('/', {
   triggersEnter: [function(context, redirect) {
     redirect('/best');
@@ -168,17 +183,9 @@ FlowRouter.route('/', {
 });
 
 FlowRouter.route('/new', {
-  name: 'postsListNew',
-  triggersEnter: [function(){
-  }],
+  name: NewPostsController.name,
   subscriptions: function(params){
-    this.register('posts', Subs.subscribe('posts', {
-      sort: {
-        submitted: -1,
-        _id: -1
-      },
-      limit: 10
-    }));
+    this.register('posts', Subs.subscribe('posts', NewPostsController.findOptions()));
   },
   action: function (params, queryParams) {
     BlazeLayout.render('layout', { content: 'postsList'});
@@ -186,20 +193,13 @@ FlowRouter.route('/new', {
 });
 
 FlowRouter.route('/best', {
-  name: 'postsListBest',
+  name: BestPostsController.name,
   triggersEnter: [function(){
     //force subs to refetch so Posts doesn't return same data. not sure if this is the best approach
-    Subs.clear();
+    //Subs.clear();
   }],
   subscriptions: function(params){
-    this.register('posts', Subs.subscribe('posts', {
-      sort: {
-        votes:-1,
-        submitted: -1,
-        _id: -1
-      },
-      limit: 10
-    }));
+    this.register('posts', Subs.subscribe('posts', BestPostsController.findOptions()));
   },
   action: function (params, queryParams) {
     BlazeLayout.render('layout', { content: 'postsList'});
@@ -211,7 +211,7 @@ FlowRouter.route('/best', {
 FlowRouter.route('/post/:_id', {
   name: 'postPage',
   subscriptions: function(params){
-    this.register('singlePost', Subs.subscribe('singlePost', params._id));
+    //this.register('singlePost', Subs.subscribe('singlePost', params._id));
     this.register('comments', Subs.subscribe('comments', params._id) );
   },
   action: function(params, queryParams){

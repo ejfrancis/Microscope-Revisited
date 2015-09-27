@@ -10,6 +10,9 @@ Meteor.publish('posts', function(options) {
 
 Meteor.publish('singlePost', function(_id) {
   check(_id, String);
+  var result = Posts.find(_id);
+  console.log('singlePost res:', result);
+  console.log(result.fetch());
   return Posts.find(_id);
 });
 

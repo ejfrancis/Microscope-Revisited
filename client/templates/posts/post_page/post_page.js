@@ -1,6 +1,6 @@
 Template.postPage.helpers({
   comments: function() {
-    return Comments.find({postId: this.postId() });
+    return Comments.find({postId: FlowRouter.getParam('_id') });
   },
 
   postId: function(){

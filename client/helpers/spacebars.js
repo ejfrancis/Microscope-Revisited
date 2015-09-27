@@ -1,7 +1,12 @@
 Template.registerHelper('pluralize', function(n,thing){
+  console.log('n:',n);
+  console.log('thing:',thing);
+  var res;
   if (n === 1){
-    return '1 ' + thing;
+    res = '1 ' + thing;
   } else {
-    return n + ' ' + thing + 's';
+    res = n + ' ' + thing + 's';
   }
+  console.log('res:',res);
+  return res;
 });

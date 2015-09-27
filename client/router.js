@@ -160,7 +160,6 @@ NewPostsController = _.extend({
     return Router.routes.newPosts.path({postsLimit: this.postsLimit() + this.increment})
   }
 }, PostsListController);
-console.log('--npc, name:', NewPostsController.name);
 
 //extend posts list controller for best posts
 BestPostsController = _.extend({

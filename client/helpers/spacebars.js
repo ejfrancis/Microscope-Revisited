@@ -7,3 +7,11 @@ Template.registerHelper('pluralize', function(n,thing){
   }
   return res;
 });
+
+//auth helpers
+Template.registerHelper('authInProcess', function(){
+  return Meteor.loggingIn();
+});
+Template.registerHelper('canShow', function(){
+  return !!Meteor.user();
+});

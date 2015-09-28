@@ -1,7 +1,4 @@
 Template.postsList.helpers({
-  subsReady: function(){
-    return Subs.ready();
-  },
   posts: function(){
     //update subscription so client always has entire subset needed when postsLimit changes
     Subs.subscribe('posts', getCurrentPostsListController().findOptions());

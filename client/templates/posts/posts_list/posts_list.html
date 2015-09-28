@@ -1,13 +1,9 @@
 <template name="postsList">
   <div class="posts">
     <div class="wrapper">
-      {{#if subsReady}}
-        {{#each posts}}
-          {{> postItem _id=_id}}
-        {{/each}}
-      {{else}}
-          {{> spinner}}
-      {{/if}}
+      {{#each posts}}
+        {{> postItem _id=_id}}
+      {{/each}}
     </div>
 
     {{#if nextPath}}

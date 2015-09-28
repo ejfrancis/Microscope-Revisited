@@ -110,32 +110,6 @@ Subs = new SubsManager();
 //  }
 //});
 
-//generic posts list controller
-//PostsListController = RouteController.extend({
-//  template: 'postsList',
-//  increment: 10,
-//  postsLimit: function() {
-//    return parseInt(this.params.postsLimit) || this.increment;
-//  },
-//  findOptions: function() {
-//    return {sort: this.sort, limit: this.postsLimit()};
-//  },
-//  posts: function() {
-//    return Posts.find({}, this.findOptions());
-//  },
-//  subscriptions: function() {
-//    this.postsSub = Meteor.subscribe('posts', this.findOptions());
-//  },
-//  data: function() {
-//    var hasMore = this.posts().count() === this.postsLimit();
-//    return {
-//      posts: this.posts(),
-//      ready: this.postsSub.ready,
-//      nextPath: hasMore ? this.nextPath() : null
-//    };
-//  }
-//});
-
 
 //generic posts list controller
 function PostsListController (){
@@ -157,13 +131,14 @@ function PostsListController (){
     return options;
   };
 
-  this.nextPath = function(){
-    var hasMore = Posts.find(this.findOptions()) === this.postsLimit();
+  this.getNextPath = function(){
+    var localPostsCount = Posts.find({}, this.findOptions()).count();
+    var postsLimit = this.postsLimit();
+    var nextPath = this.nextPath();
 
-    var nextPath = hasMore ? this.nextPath() : null;
-
-    console.log('nextPath:', nextPath);
-    return nextPath;
+    if(localPostsCount === postsLimit){
+      return nextPath;
+    }
   }
 }
 
@@ -192,20 +167,6 @@ BestPostsController.nextPath = function() {
   var path = FlowRouter.path(BestPostsController.name, {postsLimit: this.postsLimit() + this.increment});
   return path;
 };
-//
-//BestPostsController = _.extend({
-//  name: 'postsListBest',
-//  //sort by most votes
-//  sort: {
-//    votes: -1,
-//    submitted: -1,
-//    _id: -1
-//  },
-//  nextPath: function() {
-//    return Router.routes.bestPosts.path({postsLimit: this.postsLimit() + this.increment})
-//  }
-//},PostsListController);
-
 
 
 FlowRouter.route('/', {

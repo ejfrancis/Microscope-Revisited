@@ -3,17 +3,18 @@ Template.postsList.helpers({
     return Subs.ready();
   },
   posts: function(){
-    //update subscription so client always has entier subset needed when changing limit
+    //update subscription so client always has entire subset needed when postsLimit changes
     Subs.subscribe('posts', getCurrentPostsListController().findOptions());
+
     var findOptions = getCurrentPostsListController().findOptions();
     var postsCursor = Posts.find({}, findOptions);
-    console.log('options:', findOptions);
-    console.log('posts count:', postsCursor.count());
+
     return postsCursor;
   },
 
   nextPath: function(){
-    var nextPath = getCurrentPostsListController().nextPath();
+    var nextPath = getCurrentPostsListController().getNextPath();
+
     return nextPath;
   }
 });

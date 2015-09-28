@@ -1,12 +1,10 @@
-var postsSub;
-
 Template.postsList.helpers({
   subsReady: function(){
     return Subs.ready();
   },
   posts: function(){
     //update subscription so client always has entire subset needed when postsLimit changes
-    postsSub = Subs.subscribe('posts', getCurrentPostsListController().findOptions());
+    Subs.subscribe('posts', getCurrentPostsListController().findOptions());
 
     var findOptions = getCurrentPostsListController().findOptions();
     var postsCursor = Posts.find({}, findOptions);
@@ -20,13 +18,6 @@ Template.postsList.helpers({
     return nextPath;
   }
 });
-
-Template.postsList.destroyed = function(){
-  //remove subscription
-  if(postsSub){
-    postsSub.stop();
-  }
-};
 
 function getCurrentPostsListController(){
   var ctrl;

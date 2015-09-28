@@ -1,7 +1,7 @@
 <template name="postsList">
   <div class="posts">
     <div class="wrapper">
-      {{#if Template.subscriptionsReady}}
+      {{#if subsReady}}
         {{#each posts}}
           {{> postItem _id=_id}}
         {{/each}}

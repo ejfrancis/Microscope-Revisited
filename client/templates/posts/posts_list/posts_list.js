@@ -1,19 +1,37 @@
 Template.postsList.helpers({
+  subsReady: function(){
+    return Subs.ready();
+  },
   posts: function(){
-    var options = {};
+    //update subscription so client always has entier subset needed when changing limit
+    Subs.subscribe('posts', getCurrentPostsListController().findOptions());
+    var findOptions = getCurrentPostsListController().findOptions();
+    var postsCursor = Posts.find({}, findOptions);
+    console.log('options:', findOptions);
+    console.log('posts count:', postsCursor.count());
+    return postsCursor;
+  },
 
-    // sort posts depending on route
-    switch(FlowRouter.getRouteName()) {
-      case NewPostsController.name:
-        options = NewPostsController.findOptions();
-        break;
-      case BestPostsController.name:
-        options = BestPostsController.findOptions();
-    }
-
-    return Posts.find({}, options);
+  nextPath: function(){
+    var nextPath = getCurrentPostsListController().nextPath();
+    return nextPath;
   }
 });
+
+function getCurrentPostsListController(){
+  var ctrl;
+
+  // sort posts depending on route
+  switch(FlowRouter.getRouteName()) {
+    case NewPostsController.name:
+      ctrl = NewPostsController;
+      break;
+    case BestPostsController.name:
+      ctrl = BestPostsController;
+  }
+
+  return ctrl;
+}
 
 Template.postsList.onRendered(function () {
   //this.find('.wrapper')._uihooks = {

@@ -136,74 +136,103 @@ Subs = new SubsManager();
 //  }
 //});
 
+
 //generic posts list controller
-PostsListController = {
-  template: 'postsList',
-  increment: 10,
-  postsLimit: function() {
-    return parseInt(FlowRouter.getParam('postsLimit')) || this.increment;
-  },
-  findOptions: function() {
-    return {sort: this.sort, limit: this.postsLimit()};
+function PostsListController (){
+  this.template = 'postsList';
+  this.increment = 10;
+  this.sort = {};
+
+  this.postsLimit = function() {
+    var limit = parseInt(FlowRouter.getParam('postsLimit')) || this.increment;
+    return limit;
+  };
+
+  this.findOptions = function() {
+    var options = {
+      sort: this.sort,
+      limit: this.postsLimit()
+    };
+
+    return options;
+  };
+
+  this.nextPath = function(){
+    var hasMore = Posts.find(this.findOptions()) === this.postsLimit();
+
+    var nextPath = hasMore ? this.nextPath() : null;
+
+    console.log('nextPath:', nextPath);
+    return nextPath;
   }
-};
+}
 
 //extend posts list controller for new posts
-NewPostsController = _.extend({
-  name: 'postsListNew',
-  //sort by newest
-  sort: {
-    submitted: -1,
-    _id: -1
-  },
-  nextPath: function() {
-    return Router.routes.newPosts.path({postsLimit: this.postsLimit() + this.increment})
-  }
-}, PostsListController);
+NewPostsController = new PostsListController();
+NewPostsController.name = 'postsListNew';
+NewPostsController.sort = {
+  submitted: -1,
+  _id: -1
+};
+NewPostsController.nextPath = function() {
+  var path = FlowRouter.path(NewPostsController.name, {postsLimit: this.postsLimit() + this.increment});
+  return path;
+};
+
 
 //extend posts list controller for best posts
-BestPostsController = _.extend({
-  name: 'postsListBest',
-  //sort by most votes
-  sort: {
-    votes: -1,
-    submitted: -1,
-    _id: -1
-  },
-  nextPath: function() {
-    return Router.routes.bestPosts.path({postsLimit: this.postsLimit() + this.increment})
-  }
-},PostsListController);
+BestPostsController = new PostsListController();
+BestPostsController.name = 'postsListBest';
+BestPostsController.sort = {
+  votes: -1,
+  submitted: -1,
+  _id: -1
+};
+BestPostsController.nextPath = function() {
+  var path = FlowRouter.path(BestPostsController.name, {postsLimit: this.postsLimit() + this.increment});
+  return path;
+};
+//
+//BestPostsController = _.extend({
+//  name: 'postsListBest',
+//  //sort by most votes
+//  sort: {
+//    votes: -1,
+//    submitted: -1,
+//    _id: -1
+//  },
+//  nextPath: function() {
+//    return Router.routes.bestPosts.path({postsLimit: this.postsLimit() + this.increment})
+//  }
+//},PostsListController);
 
 
 
 FlowRouter.route('/', {
+  name: 'home',
   triggersEnter: [function(context, redirect) {
-    redirect('/best');
+    redirect('/best/10');
   }]
 });
 
-FlowRouter.route('/new', {
+FlowRouter.route('/new/:postsLimit', {
   name: NewPostsController.name,
   subscriptions: function(params){
+    console.log('router options:', NewPostsController.findOptions());
     this.register('posts', Subs.subscribe('posts', NewPostsController.findOptions()));
   },
   action: function (params, queryParams) {
-    BlazeLayout.render('layout', { content: 'postsList'});
+    BlazeLayout.render('layout', { content: NewPostsController.template});
   }
 });
 
-FlowRouter.route('/best', {
+FlowRouter.route('/best/:postsLimit', {
   name: BestPostsController.name,
-  triggersEnter: [function(){
-    //force subs to refetch so Posts doesn't return same data. not sure if this is the best approach
-    //Subs.clear();
-  }],
   subscriptions: function(params){
     this.register('posts', Subs.subscribe('posts', BestPostsController.findOptions()));
   },
   action: function (params, queryParams) {
-    BlazeLayout.render('layout', { content: 'postsList'});
+    BlazeLayout.render('layout', { content: BestPostsController.template});
   }
 });
 

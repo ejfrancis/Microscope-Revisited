@@ -9,7 +9,7 @@ Template.notifications.helpers({
 
 Template.notificationItem.helpers({
   notificationPostPath: function() {
-    return Router.routes.postPage.path({_id: this.postId});
+    return FlowRouter.path('postPage',{_id: this.postId});
   }
 });
 

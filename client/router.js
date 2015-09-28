@@ -175,6 +175,8 @@ BestPostsController = _.extend({
   }
 },PostsListController);
 
+
+
 FlowRouter.route('/', {
   triggersEnter: [function(context, redirect) {
     redirect('/best');
@@ -214,10 +216,16 @@ FlowRouter.route('/post/:_id', {
     this.register('comments', Subs.subscribe('comments', params._id) );
   },
   action: function(params, queryParams){
-    BlazeLayout.render('layout', { content: 'postPage' })
+    BlazeLayout.render('layout', { content: 'postPage' });
   }
 });
 
+FlowRouter.route('/postSubmit', {
+  name: 'postSubmit',
+  action: function(params, queryParams){
+    BlazeLayout.render('layout', { content: 'postSubmit' });
+  }
+});
 
 //404 page
 FlowRouter.notFound = {

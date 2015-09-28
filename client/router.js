@@ -227,6 +227,17 @@ FlowRouter.route('/postSubmit', {
   }
 });
 
+FlowRouter.route('/posts/:_id/edit', {
+  name: 'postEdit',
+  subscriptions: function(params){
+    this.register('singlePost', Subs.subscribe('singlePost',params._id));
+  },
+  action: function(params, queryParams){
+    BlazeLayout.render('layout', { content: 'postEdit' });
+  }
+});
+//});
+
 //404 page
 FlowRouter.notFound = {
   // Subscriptions registered here don't have Fast Render support.

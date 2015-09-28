@@ -1,4 +1,5 @@
 <template name="postEdit">
+  {{#with post}}
   <form class="main form page">
     <div class="form-group {{errorClass 'url'}}">
       <label class="control-label" for="url">URL</label>
@@ -18,4 +19,5 @@
     <hr/>
     <a class="btn btn-danger delete" href="#">Delete post</a>
   </form>
+  {{/with}}
 </template>

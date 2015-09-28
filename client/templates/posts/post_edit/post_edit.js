@@ -28,7 +28,7 @@ Template.postEdit.events({
         Errors.throw('This link has already been posted');
       }
 
-      Router.go('postPage', { _id: result._id});
+      FlowRouter.go('postPage', { _id: result._id});
     })
   },
 
@@ -48,6 +48,9 @@ Template.postEdit.onCreated(function() {
 });
 
 Template.postEdit.helpers({
+  post: function(){
+    return Posts.findOne(FlowRouter.getParam('_id'));
+  },
   errorMessage: function(field) {
     return Session.get('postEditErrors')[field];
   },

@@ -16,7 +16,6 @@ Template.postItem.helpers({
       return 'disabled';
     }
   },
-
   post: function(){
     //debugger;
     var post = Posts.findOne(this._id);

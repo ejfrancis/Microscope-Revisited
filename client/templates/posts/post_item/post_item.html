@@ -11,7 +11,7 @@
         {{pluralize votes "Vote"}},
         submitted by {{author}}
         <a href="{{pathFor 'postPage' }}/{{_id}}">{{pluralize commentsCount "comment"}}</a>
-        {{#if ownPost}}<a href="{{pathFor 'postEdit'}}">Edit</a>{{/if}}
+        {{#if ownPost}}<a href="{{pathFor 'postEdit' _id=_id}}">Edit</a>{{/if}}
       </p>
     </div>
     <a href="{{pathFor 'postPage'}}/{{_id}}" class="discuss btn btn-default">Discuss</a>

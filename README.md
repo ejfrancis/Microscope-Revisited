@@ -1,6 +1,6 @@
 ## Microscope Revisited
 
-[Discovering Meteor's Microscope](https://github.com/DiscoverMeteor/Microscope) rebuilt using the following packages:
+[Discovering Meteor's Microscope](https://github.com/DiscoverMeteor/Microscope) upgraded to Meteor 1.2 and rebuilt using the following packages:
 
 * `kadira:flow-router`
 * `arilla:flow-router-helpers`

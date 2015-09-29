@@ -2,9 +2,11 @@ Template.postEdit.events({
   'submit form': function(e) {
     e.preventDefault();
 
-    var currentPost = {
-      url: this.url,
-      title: this.title
+    var currentPost = Posts.findOne(FlowRouter.getParam('_id'));
+
+    var currentPostData = {
+      url: currentPost.url,
+      title: currentPost.title
     };
 
     var updatedPost = {
@@ -17,9 +19,9 @@ Template.postEdit.events({
       return Session.set('postEditErrors', errors);
     }
 
-    var currentPostId = this._id;
+    var currentPostId = FlowRouter.getParam('_id');
 
-    Meteor.call('postEdit', currentPostId,  currentPost, updatedPost, function(err,result){
+    Meteor.call('postEdit', currentPostId,  currentPostData, updatedPost, function(err,result){
       if(err){
         return Errors.throw(error.reason);
       }

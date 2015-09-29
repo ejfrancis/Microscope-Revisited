@@ -1,0 +1,2 @@
+export CLUSTER_WORKERS_COUNT=auto
+meteor -p 3000

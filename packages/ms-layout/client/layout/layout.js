@@ -1,4 +1,6 @@
+
 Template.layout.onRendered(function() {
+  console.log('layout rendered');
   this.find('#main')._uihooks = {
     insertElement: function(node, next) {
       $(node)
@@ -13,3 +15,4 @@ Template.layout.onRendered(function() {
     }
   }
 });
+

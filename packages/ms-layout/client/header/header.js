@@ -1,5 +1,5 @@
 Template.header.helpers({
-  activeRouteClass: function( /* route names */){
+  activeRouteClass: function (/* route names */) {
     //convert
     //var args = Array.prototype.slice.call(arguments,0);
     //args.pop(); //remove the last arg added by spacebars

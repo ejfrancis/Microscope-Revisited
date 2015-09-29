@@ -15,7 +15,7 @@ There are different branches for the different steps of refactoring:
 * `v1` is the complete Microscope project from DiscoveringMeteor (written by me as I read the book so there may be slight differences)
 * `v2-w/karidahq-packages` is rebuilt using the kadira/meteorhacks packages listed above
 * `v3-local-packages` [COMING] is refactored so that all code is inside local packages
-* `v4-microservices` [COMING] is rebuilt with microservices for the web UI, posts, comments, and notifications 
+* `v4-microservices` [COMING] is rebuilt with microservices using `meteorhacks:cluster`
 
 ---
 

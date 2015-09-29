@@ -12,7 +12,7 @@ Template.postEdit.events({
       title: $(e.target).find('[name=title]').val()
     };
 
-    var errors = Validation.Posts.validatePost(updatedPost);
+    var errors = Posts.validatePost(updatedPost);
     if (errors.title || errors.url) {
       return Session.set('postEditErrors', errors);
     }

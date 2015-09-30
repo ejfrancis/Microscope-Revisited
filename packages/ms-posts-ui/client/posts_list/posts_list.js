@@ -1,7 +1,9 @@
+var tmplSubs = new SubsManager();
+
 Template.postsList.helpers({
   posts: function(){
     //update subscription so client always has entire subset needed when postsLimit changes
-    Subs.subscribe('posts', getCurrentPostsListController().findOptions());
+    tmplSubs.subscribe('posts', getCurrentPostsListController().findOptions());
 
     var findOptions = getCurrentPostsListController().findOptions();
     var postsCursor = Posts.find({}, findOptions);
@@ -14,6 +16,10 @@ Template.postsList.helpers({
 
     return nextPath;
   }
+});
+
+Template.postsList.onDestroyed(function(){
+  tmplSubs.clear();
 });
 
 function getCurrentPostsListController(){

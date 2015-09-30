@@ -19,5 +19,4 @@ Package.onTest(function(api) {
   api.use('ecmascript');
   api.use('tinytest');
   api.use('ms-theme-default');
-  api.addFiles('ms-theme-default-tests.js');
 });

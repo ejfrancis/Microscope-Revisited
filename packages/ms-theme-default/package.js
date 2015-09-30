@@ -1,8 +1,10 @@
 Package.describe({
-  name: 'ms-config',
+  name: 'ms-theme-default',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
+  // URL to the Git repository containing the source code for this package.
+  git: '',
   // By default, Meteor will default to using README.md for documentation.
   // To avoid submitting documentation, set this field to null.
   documentation: 'README.md'
@@ -10,14 +12,12 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.0.1');
-  api.use('ecmascript');
-  api.use('ian:accounts-ui-bootstrap-3','client');
-  api.addFiles('lib/ms-config.js', 'client');
+  api.addFiles('client/style.css','client');
 });
 
 Package.onTest(function(api) {
   api.use('ecmascript');
   api.use('tinytest');
-  api.use('ms-config');
-  api.addFiles('lib/ms-config-tests.js');
+  api.use('ms-theme-default');
+  api.addFiles('ms-theme-default-tests.js');
 });

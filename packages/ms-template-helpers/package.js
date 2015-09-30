@@ -12,7 +12,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.2.0.1');
   api.use('ecmascript');
   api.use('blaze-html-templates','client');
-  api.addFiles('client/ms-template-helpers.js');
+  api.addFiles('client/ms-template-helpers.js','client');
 });
 
 Package.onTest(function(api) {

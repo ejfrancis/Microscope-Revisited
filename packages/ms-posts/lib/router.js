@@ -31,7 +31,7 @@ function PostsListController (){
   };
 
   this.getNextPath = function(){
-    var localPostsCount = Posts.find({}, this.findOptions()).count();
+    var localPostsCount = MS.collections.Posts.find({}, this.findOptions()).count();
     var postsLimit = this.postsLimit();
     var nextPath = this.nextPath();
 
@@ -42,28 +42,28 @@ function PostsListController (){
 }
 
 //extend posts list controller for new posts
-NewPostsController = new PostsListController();
-NewPostsController.name = 'postsListNew';
-NewPostsController.sort = {
+MS.controllers.NewPostsController = new PostsListController();
+MS.controllers.NewPostsController.name = 'postsListNew';
+MS.controllers.NewPostsController.sort = {
   submitted: -1,
   _id: -1
 };
-NewPostsController.nextPath = function() {
-  var path = FlowRouter.path(NewPostsController.name, {postsLimit: this.postsLimit() + this.increment});
+MS.controllers.NewPostsController.nextPath = function() {
+  var path = FlowRouter.path(MS.controllers.NewPostsController.name, {postsLimit: this.postsLimit() + this.increment});
   return path;
 };
 
 
 //extend posts list controller for best posts
-BestPostsController = new PostsListController();
-BestPostsController.name = 'postsListBest';
-BestPostsController.sort = {
+MS.controllers.BestPostsController = new PostsListController();
+MS.controllers.BestPostsController.name = 'postsListBest';
+MS.controllers.BestPostsController.sort = {
   votes: -1,
   submitted: -1,
   _id: -1
 };
-BestPostsController.nextPath = function() {
-  var path = FlowRouter.path(BestPostsController.name, {postsLimit: this.postsLimit() + this.increment});
+MS.controllers.BestPostsController.nextPath = function() {
+  var path = FlowRouter.path(MS.controllers.BestPostsController.name, {postsLimit: this.postsLimit() + this.increment});
   return path;
 };
 
@@ -81,22 +81,22 @@ FlowRouter.route('/', {
 });
 
 FlowRouter.route('/new/:postsLimit', {
-  name: NewPostsController.name,
+  name: MS.controllers.NewPostsController.name,
   subscriptions: function(params){
-    this.register('posts', Subs.subscribe('posts', NewPostsController.findOptionsNonReactive()));
+    this.register('posts', Subs.subscribe('posts', MS.controllers.NewPostsController.findOptionsNonReactive()));
   },
   action: function (params, queryParams) {
-    BlazeLayout.render('layout', { content: NewPostsController.template});
+    BlazeLayout.render('layout', { content: MS.controllers.NewPostsController.template});
   }
 });
 
 FlowRouter.route('/best/:postsLimit', {
-  name: BestPostsController.name,
+  name: MS.controllers.BestPostsController.name,
   subscriptions: function(params){
-    this.register('posts', Subs.subscribe('posts', BestPostsController.findOptionsNonReactive()));
+    this.register('posts', Subs.subscribe('posts', MS.controllers.BestPostsController.findOptionsNonReactive()));
   },
   action: function (params, queryParams) {
-    BlazeLayout.render('layout', { content: BestPostsController.template});
+    BlazeLayout.render('layout', { content: MS.controllers.BestPostsController.template});
   }
 });
 

@@ -61,6 +61,7 @@ mongo@1.1.1
 mongo-id@1.0.1
 mongo-livedata@1.0.9
 ms-config@0.0.1
+ms-core@0.0.1
 ms-layout@0.0.1
 ms-posts@0.0.1
 ms-posts-ui@0.0.1

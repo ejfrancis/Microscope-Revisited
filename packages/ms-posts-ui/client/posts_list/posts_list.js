@@ -6,7 +6,7 @@ Template.postsList.helpers({
     tmplSubs.subscribe('posts', getCurrentPostsListController().findOptions());
 
     var findOptions = getCurrentPostsListController().findOptions();
-    var postsCursor = Posts.find({}, findOptions);
+    var postsCursor = MS.collections.Posts.find({}, findOptions);
 
     return postsCursor;
   },
@@ -27,11 +27,11 @@ function getCurrentPostsListController(){
 
   // sort posts depending on route
   switch(FlowRouter.getRouteName()) {
-    case NewPostsController.name:
-      ctrl = NewPostsController;
+    case MS.controllers.NewPostsController.name:
+      ctrl = MS.controllers.NewPostsController;
       break;
-    case BestPostsController.name:
-      ctrl = BestPostsController;
+    case MS.controllers.BestPostsController.name:
+      ctrl = MS.controllers.BestPostsController;
   }
 
   return ctrl;

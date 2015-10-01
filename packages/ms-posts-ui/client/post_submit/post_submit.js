@@ -8,7 +8,7 @@ Template.postSubmit.events({
     };
 
     //validate the post, set session variables if any found, and return out
-    var errors = Posts.validatePost(post);
+    var errors = MS.collections.Posts.validatePost(post);
     if(errors.title || errors.url){
       return Session.set('postSubmitErrors', errors);
     }

@@ -19,7 +19,7 @@ Package.onUse(function(api) {
   api.use('ms-core',['client','server']);
 
   api.addFiles([
-    'lib/router.js',
+    'lib/routes.js',
     'lib/collections.js'
     ], ['client','server']);
   api.addFiles([

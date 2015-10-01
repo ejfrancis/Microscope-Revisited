@@ -18,7 +18,7 @@ Template.postItem.helpers({
   },
   post: function(){
     //debugger;
-    var post = MS.collections.Posts.findOne(this._id);
+    var post = MS.collections.posts.findOne(this._id);
     return post;
   }
 });
@@ -32,6 +32,6 @@ Template.postItem.events({
 
 //Template.postItem.onCreated(function(){
 //  this._id = FlowRouter.current().params._id;
-//  this.post = MS.collections.Posts.find({_id: this._id});
+//  this.post = MS.collections.posts.find({_id: this._id});
 //  console.log(this);
 //});

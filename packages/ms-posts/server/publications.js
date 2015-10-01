@@ -4,10 +4,10 @@ Meteor.publish('posts', function(options) {
     limit: Number
   });
   //use pagination options to retrieve subset
-  return MS.collections.Posts.find({}, options);
+  return MS.collections.posts.find({}, options);
 });
 
 Meteor.publish('singlePost', function(_id) {
   check(_id, String);
-  return MS.collections.Posts.find(_id);
+  return MS.collections.posts.find(_id);
 });

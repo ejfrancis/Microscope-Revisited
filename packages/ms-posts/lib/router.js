@@ -31,7 +31,7 @@ function PostsListController (){
   };
 
   this.getNextPath = function(){
-    var localPostsCount = MS.collections.Posts.find({}, this.findOptions()).count();
+    var localPostsCount = MS.collections.posts.find({}, this.findOptions()).count();
     var postsLimit = this.postsLimit();
     var nextPath = this.nextPath();
 

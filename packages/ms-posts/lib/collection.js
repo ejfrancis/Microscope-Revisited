@@ -1,12 +1,12 @@
-MS.collections.Posts = new Mongo.Collection('posts');
+MS.collections.posts = new Mongo.Collection('posts');
 
-MS.collections.Posts.allow({
+MS.collections.posts.allow({
   remove: function(userId, doc){
-    return Permissions.ownsDocument(userId, doc);
+    return MS.permissions.ownsDocument(userId, doc);
   }
 });
 
-MS.collections.Posts.validatePost = function (post) {
+MS.collections.posts.validatePost = function (post) {
   var errors = {};
   if (!post.title)
     errors.title = "Please fill in a title";
@@ -25,12 +25,12 @@ Meteor.methods({
     });
 
     //validate this post
-    var errors = MS.collections.Posts.validatePost(postAttributes);
+    var errors = MS.collections.posts.validatePost(postAttributes);
     if (errors.title || errors.url) {
       throw new Meteor.Error('invalid-post', "You must set a title and URL for your post");
     }
     //if this URL is a repost, redirect to that page
-    var postWithSameLink = MS.collections.Posts.findOne({url: postAttributes.url});
+    var postWithSameLink = MS.collections.posts.findOne({url: postAttributes.url});
     if (postWithSameLink) {
       return {
         postExists: true,
@@ -48,7 +48,7 @@ Meteor.methods({
       upvoters: [],
       votes: 0
     });
-    var postId = MS.collections.Posts.insert(post);
+    var postId = MS.collections.posts.insert(post);
 
     return {
       _id: postId
@@ -68,7 +68,7 @@ Meteor.methods({
     });
 
     //validate this post
-    var errors = MS.collections.Posts.validatePost(updatedPost);
+    var errors = MS.collections.posts.validatePost(updatedPost);
     if (errors.title || errors.url) {
       throw new Meteor.Error('invalid-post', "You must set a title and URL for your post");
     }
@@ -81,7 +81,7 @@ Meteor.methods({
     }
 
     //if the url was edited and the new url already exists, redirect to that page instead of editing
-    var postWithSameLink = MS.collections.Posts.findOne({url: updatedPost.url});
+    var postWithSameLink = MS.collections.posts.findOne({url: updatedPost.url});
     if(postWithSameLink && (postWithSameLink._id !== currentPostId)){
       return {
         postExists: true,
@@ -89,7 +89,7 @@ Meteor.methods({
       }
     }
 
-    MS.collections.Posts.update(currentPostId, {$set: updatedPost});
+    MS.collections.posts.update(currentPostId, {$set: updatedPost});
 
     return {
       _id: currentPostId
@@ -101,7 +101,7 @@ Meteor.methods({
     check(postId, String);
 
     //update posts that this user hasn't already upvoted, to perform get and update in single db call
-    var affected = MS.collections.Posts.update({
+    var affected = MS.collections.posts.update({
       _id: postId,
       upvoters: {$ne: this.userId}
     }, {

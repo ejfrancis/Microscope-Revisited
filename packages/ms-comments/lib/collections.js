@@ -1,4 +1,4 @@
-Comments = new Mongo.Collection('comments');
+MS.collections.comments = new Mongo.Collection('comments');
 
 Meteor.methods({
   commentInsert: function(commentAttributes) {
@@ -10,7 +10,7 @@ Meteor.methods({
 
     //make sure this comment is for a real post
     var user = Meteor.user();
-    var post = MS.collections.MS.collections.Posts.findOne(commentAttributes.postId);
+    var post = MS.collections.posts.findOne(commentAttributes.postId);
     if (!post) {
       throw new Meteor.Error('invalid-comment', 'You must comment on a post');
     }
@@ -23,14 +23,14 @@ Meteor.methods({
     });
 
     //update this post's comment count
-    MS.collections.MS.collections.Posts.update(comment.postId, {
+    MS.collections.posts.update(comment.postId, {
       $inc: {
         commentsCount: 1
       }
     });
 
     // create the comment, save the id
-    comment._id = Comments.insert(comment);
+    comment._id = MS.collections.comments.insert(comment);
     // now create a notification, informing the user that there's been a comment
     createCommentNotification(comment);
 

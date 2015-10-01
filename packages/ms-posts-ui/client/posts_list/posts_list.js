@@ -6,7 +6,7 @@ Template.postsList.helpers({
     tmplSubs.subscribe('posts', getCurrentPostsListController().findOptions());
 
     var findOptions = getCurrentPostsListController().findOptions();
-    var postsCursor = MS.collections.Posts.find({}, findOptions);
+    var postsCursor = MS.collections.posts.find({}, findOptions);
 
     return postsCursor;
   },

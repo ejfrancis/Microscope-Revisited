@@ -2,7 +2,7 @@ Template.postEdit.events({
   'submit form': function(e) {
     e.preventDefault();
 
-    var currentPost = MS.collections.MS.collections.Posts.findOne(FlowRouter.getParam('_id'));
+    var currentPost = MS.collections.posts.findOne(FlowRouter.getParam('_id'));
 
     var currentPostData = {
       url: currentPost.url,
@@ -14,7 +14,7 @@ Template.postEdit.events({
       title: $(e.target).find('[name=title]').val()
     };
 
-    var errors = MS.collections.MS.collections.Posts.validatePost(updatedPost);
+    var errors = MS.collections.posts.validatePost(updatedPost);
     if (errors.title || errors.url) {
       return Session.set('postEditErrors', errors);
     }
@@ -39,7 +39,7 @@ Template.postEdit.events({
 
     if (confirm("Delete this post?")) {
       var currentPostId = this._id;
-      MS.collections.Posts.remove(currentPostId);
+      MS.collections.posts.remove(currentPostId);
       FlowRouter.go('home');
     }
   }
@@ -51,7 +51,7 @@ Template.postEdit.onCreated(function() {
 
 Template.postEdit.helpers({
   post: function(){
-    return MS.collections.Posts.findOne(FlowRouter.getParam('_id'));
+    return MS.collections.posts.findOne(FlowRouter.getParam('_id'));
   },
   errorMessage: function(field) {
     return Session.get('postEditErrors')[field];

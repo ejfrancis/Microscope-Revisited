@@ -66,6 +66,7 @@ ms-config@0.0.1
 ms-core@0.0.1
 ms-layout@0.0.1
 ms-notifications@0.0.1
+ms-notifications-ui@0.0.1
 ms-permissions@0.0.1
 ms-posts@0.0.1
 ms-posts-ui@0.0.1

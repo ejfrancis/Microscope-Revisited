@@ -3,8 +3,9 @@
     {{> spinner}}
   {{else}}
 
-    <form class="main form page">
-      {{#if canShow}}
+    {{#if canShow}}
+
+      <form class="main form page">
 
         <div class="form-group {{errorClass 'url'}}">
         <label class="control-label" for="url">URL</label>
@@ -22,10 +23,11 @@
       </div>
       <input type="submit" value="Submit" class="btn btn-primary"/>
 
-      {{else}}
-        <p>You must be logged in to submit a new post.</p>
-      {{/if}}
+
     </form>
+    {{else}}
+      {{> accessDenied}}
+    {{/if}}
 
   {{/if}}
 </template>

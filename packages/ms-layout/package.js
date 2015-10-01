@@ -14,6 +14,9 @@ Package.onUse(function(api) {
   api.use('blaze-html-templates','client');
   api.use('efrancis:errors','client');
 
+  api.addFiles('client/access_denied/access_denied.html','client');
+
+
   api.addFiles('client/main/main.html','client');
 
   api.addFiles('client/layout/layout.html','client');

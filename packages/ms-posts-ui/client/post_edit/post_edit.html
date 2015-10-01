@@ -3,8 +3,9 @@
     {{> spinner}}
   {{else}}
 
-  <form class="main form page">
     {{#if canShow}}
+
+    <form class="main form page">
       {{#with post}}
         <div class="form-group {{errorClass 'url'}}">
           <label class="control-label" for="url">URL</label>
@@ -24,10 +25,12 @@
         <hr/>
         <a class="btn btn-danger delete" href="#">Delete post</a>
       {{/with}}
+
+
+    </form>
     {{else}}
-      <p>You must be logged in to do that.</p>
+      {{> accessDenied}}
     {{/if}}
-  </form>
 
   {{/if}}
 </template>

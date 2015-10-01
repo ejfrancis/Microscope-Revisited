@@ -20,7 +20,7 @@ Package.onUse(function(api) {
 
   api.addFiles([
     'lib/router.js',
-    'lib/collection.js'
+    'lib/collections.js'
     ], ['client','server']);
   api.addFiles([
     'server/publications.js'

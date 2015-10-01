@@ -32,7 +32,7 @@ Meteor.methods({
     // create the comment, save the id
     comment._id = MS.collections.comments.insert(comment);
     // now create a notification, informing the user that there's been a comment
-    createCommentNotification(comment);
+    MS.collections.notifications.createCommentNotification(comment);
 
     return comment._id;
   }

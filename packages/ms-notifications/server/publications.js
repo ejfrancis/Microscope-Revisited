@@ -1,5 +1,5 @@
 Meteor.publish('notifications', function() {
-  return Notifications.find({
+  return MS.collections.notifications.find({
     userId: this.userId,
     read:false
   });

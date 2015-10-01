@@ -14,12 +14,13 @@ Package.onUse(function(api) {
   api.use('blaze-html-templates','client');
   api.use('efrancis:errors','client');
 
+  api.addFiles('client/main/main.html','client');
+
   api.addFiles('client/layout/layout.html','client');
   api.addFiles('client/layout/layout.js','client');
 
   api.addFiles('client/header/header.html','client');
   api.addFiles('client/header/header.js','client');
-
 
   api.addFiles('client/not_found/not_found.html','client');
 

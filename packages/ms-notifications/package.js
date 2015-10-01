@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'ms-permissions',
+  name: 'ms-notifications',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -13,13 +13,16 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.2.0.1');
   api.use('ecmascript');
-  api.use('ms-core',['client','server']);
+  api.use('ms-core');
+  api.use('mongo');
 
-  api.addFiles('lib/permissions.js',['client','server']);
+  api.addFiles('lib/collections.js',['client','server']);
+  api.addFiles('server/publications.js',['server']);
 });
 
 Package.onTest(function(api) {
   api.use('ecmascript');
   api.use('tinytest');
-  api.use('ms-permissions');
+  api.use('ms-notifications');
+  api.addFiles('ms-notifications-tests.js');
 });

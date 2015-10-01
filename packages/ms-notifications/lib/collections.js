@@ -1,6 +1,6 @@
-Notifications = new Mongo.Collection('notifications');
+MS.collections.notifications = new Mongo.Collection('notifications');
 
-Notifications.allow({
+MS.collections.notifications.allow({
   update: function(userId, doc, fieldNames) {
     //allow if user owns the document
     return MS.permissions.ownsDocument(userId, doc) &&
@@ -8,11 +8,11 @@ Notifications.allow({
   }
 });
 
-createCommentNotification = function(comment) {
+MS.collections.notifications.createCommentNotification = function(comment) {
   var post = MS.collections.posts.findOne(comment.postId);
   //only create notification if current user isn't the creator
   if (comment.userId !== post.userId) {
-    Notifications.insert({
+    MS.collections.notifications.insert({
       userId: post.userId,
       postId: post._id,
       commentId: comment._id,

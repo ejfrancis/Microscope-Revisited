@@ -1,21 +1,25 @@
 ## Microscope Revisited
 
-[Discovering Meteor's Microscope](https://github.com/DiscoverMeteor/Microscope) upgraded to Meteor 1.2 and rebuilt using the following packages:
+[Discovering Meteor's Microscope](https://github.com/DiscoverMeteor/Microscope) was a great way to get an introduction to the Meteor
+framework. I wanted to continue learning , so I used the Microscope project as a test bed for teaching myself. 
+ Hopefully it can be helpful to others who are looking to continue their education as well. 
+ 
+## Changes
+ This project is upgraded to Meteor 1.2 and rebuilt using the following packages:
 
-* `kadira:flow-router`
+* `kadira:flow-router` instead of `iron:router` for faster, client-side routing
 * `arilla:flow-router-helpers`
-* `kadira:blaze-layout`
-* `meteorhacks:subs-manager`
-* `meteorhacks:fast-render`
-* `meteorhacks:cluster`
+* `kadira:blaze-layout` 
+* `meteorhacks:subs-manager` for caching subscriptions on the client
+* `meteorhacks:fast-render` to send initial DDP data to the client and decrease pageload time
 
+##Branches
+There are different branches in this repo for the different steps of refactoring:
 
-There are different branches for the different steps of refactoring:
-
-* `v1` is the complete Microscope project from DiscoveringMeteor (written by me as I read the book so there may be slight differences)
-* `v2-w/karidahq-packages` is rebuilt using the kadira/meteorhacks packages listed above
-* `v3-local-packages` [COMING] is refactored so that all code is inside local packages
-* `v4-microservices` [COMING] is rebuilt with microservices using `meteorhacks:cluster`
+* `v1` is the complete Microscope project from DiscoveringMeteor (written by me as I read through the book so there may be slight differences)
+* `v2-w/karidahq-packages` is rebuilt using the kadira/meteorhacks packages listed above for better performance
+* `v3-local-packages` is refactored so that all code is inside local packages
+* `v4-microservices` *[COMING SOON]* is rebuilt with microservices using `meteorhacks:cluster`
 
 ---
 
@@ -24,11 +28,6 @@ Using a different router required a few changes from the original Microscope pro
 
 * auth is implemented at template-level, with global template helpers 'canShow' and 'authInProcess'
 * the PostsListController is now just a plain JavaScript function/class
-* the postsList template JS file now includes a getCurrentPostsListController() method because the posts cursor is created within the template itself instead of at the router level when postsLimit changes in the URL. Ideally all subscriptions would be at the template level, but registering them in the router is required for `kadira:fast-render` (for now)
-
-## Starting the app
-Since the app is running on all available cores using the `meteorhacks:cluster` package using the envrionment variables API, to start the app a shell script `.start-app` is used. So to run the app, run:
-
- `sh .start-app`
-
-
+* the postsList template JS file now includes a getCurrentPostsListController() method because the posts cursor is 
+created within the template itself instead of at the router level when postsLimit changes in the URL. Ideally all 
+subscriptions would be at the template level, but registering them in the router is required for `kadira:fast-render` (for now).
